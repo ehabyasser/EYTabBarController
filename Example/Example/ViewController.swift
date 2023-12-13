@@ -10,16 +10,15 @@ import EYTabBarController
 
 class ViewController: EYTabBarController , EYTabBarDelegate{
     
-
     override func viewDidLoad() {
-        viewControllers = [UINavigationController(rootViewController: ViewController1()) , ViewController2() , ViewController3() , ViewController4() , ViewController5()]
-        tabBarItems = [EYBarItem(icon: UIImage(systemName: "house"), title: "house") , EYBarItem(icon: UIImage(systemName: "house"), title: "house") , EYBarItem(icon: UIImage(systemName: "house"), title: "house") , EYBarItem(icon: UIImage(systemName: "house"), title: "house") , EYBarItem(icon: UIImage(systemName: "house"), title: "house")]
+        super.viewDidLoad()
+        let viewControllers = [UINavigationController(rootViewController: ViewController1()) , ViewController2() , ViewController3() , ViewController4() , ViewController5()]
+       let  tabBarItems = [EYBarItem(icon: UIImage(systemName: "house"), title: "house") , EYBarItem(icon: UIImage(systemName: "house"), title: "house") , EYBarItem(icon: UIImage(systemName: "house"), title: "house") , EYBarItem(icon: UIImage(systemName: "house"), title: "house") , EYBarItem(icon: UIImage(systemName: "house"), title: "house")]
         tabBarBackgroundColor = .black
-        accentColor = .red
+        accentColor = .green
         font = UIFont.systemFont(ofSize: 10, weight: .semibold)
         //delegate = self
-        super.viewDidLoad()
-        
+        self.draw(viewControllers: viewControllers, tabBarItems: tabBarItems)
     }
 
     func tabDidSelect(index: Int) {

@@ -20,12 +20,7 @@ class ViewController5: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .orange
-        view.addSubview(footer)
-        footer.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-            make.height.equalTo(50)
-        }
+        
     }
     
 

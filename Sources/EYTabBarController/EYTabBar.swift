@@ -53,12 +53,20 @@ class EYTabBar: UIView {
         }
     }
     
-    init(items: [EYBarItem] , tabBackgroundColor:UIColor , accentColor:UIColor , font:UIFont){
+    
+    init(){
+        self.items = []
+        self.tabBackgroundColor = UIColor(hex: "#307893")
+        self.accentColor = UIColor(hex: "#3AABD6")
+        self.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        super.init(frame: .zero)
+    }
+    
+    func configure(items: [EYBarItem] , tabBackgroundColor:UIColor , accentColor:UIColor , font:UIFont){
         self.items = items
         self.tabBackgroundColor = tabBackgroundColor
         self.accentColor = accentColor
         self.font = font
-        super.init(frame: .zero)
         self.setupUI()
     }
     
@@ -146,6 +154,7 @@ class EYTabBar: UIView {
     
     
     func selectItem(index:Int){
+        if self.itemsViews.count <= index {return}
         self.resetItems()
         self.itemsViews[index].selectItem()
     }
@@ -193,10 +202,10 @@ class EYTabBar: UIView {
         return path.cgPath
     }
 
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        let buttonRadius: CGFloat = 20
-        return abs(self.center.x - point.x) > buttonRadius || abs(point.y) > buttonRadius
-    }
+//    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+//        let buttonRadius: CGFloat = 20
+//        return abs(self.center.x - point.x) > buttonRadius || abs(point.y) > buttonRadius
+//    }
 
     func createPathCircle() -> CGPath {
         let radius: CGFloat = 22.0

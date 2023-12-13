@@ -26,7 +26,7 @@ extension CGFloat {
 
 extension UIButton {
     
-    func tap(callback: @escaping () -> Void) {
+    public func tap(callback: @escaping () -> Void) {
         self.endEditing(true)
         addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
         if let hashValue = UnsafeRawPointer(bitPattern: "callback".hashValue) {
@@ -55,7 +55,7 @@ extension UIButton {
 
 extension UIColor{
     
-    convenience init(hex: String, alpha: CGFloat = 1.0) {
+   public convenience init(hex: String, alpha: CGFloat = 1.0) {
            var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
            hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
 
@@ -70,7 +70,7 @@ extension UIColor{
            self.init(red: red, green: green, blue: blue, alpha: alpha)
        }
 
-    static func adaptive(dark: UIColor, light: UIColor) -> UIColor {
+  public static func adaptive(dark: UIColor, light: UIColor) -> UIColor {
         if #available(iOS 13.0, *) {
             return UIColor { $0.userInterfaceStyle == .dark ? dark : light }
         } else {

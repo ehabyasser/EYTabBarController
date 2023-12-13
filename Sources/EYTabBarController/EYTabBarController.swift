@@ -11,8 +11,8 @@ public protocol EYTabBarDelegate{
 open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavigationControllerDelegate {
     
     
-    open var viewControllers:[UIViewController] = []
-    open var tabBarItems:[EYBarItem] = []{
+    private var viewControllers:[UIViewController] = []
+    private var tabBarItems:[EYBarItem] = []{
         didSet{
             tabBar.items = tabBarItems
         }
@@ -37,13 +37,7 @@ open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavig
         }
     }
     
-    private lazy var tabBar:EYTabBar = {
-        
-        let tabs = EYTabBar(items: tabBarItems, tabBackgroundColor: tabBarBackgroundColor, accentColor: accentColor, font: font)
-        tabs.layer.cornerRadius = 8
-        tabs.clipsToBounds = true
-        return tabs
-    }()
+    private var tabBar:EYTabBar = EYTabBar()
     
     private lazy var addBtn:UIButton = {
         let btn = UIButton()
@@ -70,11 +64,20 @@ open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavig
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        setupUI()
+    }
+    
+    
+    open func draw(viewControllers:[UIViewController] , tabBarItems:[EYBarItem]){
+        self.viewControllers = viewControllers
+        self.tabBarItems = tabBarItems
+        tabBar.configure(items: tabBarItems, tabBackgroundColor: tabBarBackgroundColor, accentColor: accentColor, font: font)
+        tabBar.layer.cornerRadius = 8
+        tabBar.clipsToBounds = true
+        self.setupUI()
     }
 
     
-    func setupUI(){
+    private func setupUI(){
         if viewControllers.isEmpty {return}
         if viewControllers.count != 5 {
             fatalError("maximum tabs number is 5")
@@ -90,11 +93,10 @@ open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavig
         }
         let img = tabBarItems.get(at: 2)?.icon
         self.addBtn.setImage(img, for: .normal)
+        view.addSubview(contentView)
         self.view.addSubview(tabBar)
         self.view.addSubview(addBtn)
-        view.addSubview(contentView)
         let vc = viewControllers.get(at: 0) ?? UIViewController()
-        self.updateBackground(vc: vc)
         ViewEmbedder.embed(parent: self, container: self.contentView, child: vc, previous: self.children.first)
         tabBar.delegate = self
         tabBar.snp.makeConstraints { make in
@@ -110,7 +112,7 @@ open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavig
         
         contentView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
-            make.bottom.equalTo(addBtn.snp.top)
+            make.bottom.equalToSuperview()
         }
         
         addBtn.tap {
@@ -132,7 +134,6 @@ open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavig
                 self.hideTabBar()
             }
         }
-        self.updateBackground(vc: viewController)
         if navigationController.viewControllers.count == 1 {
             self.showTabBar()
         }
@@ -182,31 +183,19 @@ open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavig
         tabBar.selectItem(index: index)
         switch index {
         case 0:
-            self.updateBackground(vc: viewControllers[index])
             ViewEmbedder.embed(parent: self, container: self.contentView, child: viewControllers[index], previous: self.children.first)
             break
         case 1:
-            self.updateBackground(vc: viewControllers[index])
             ViewEmbedder.embed(parent: self, container: self.contentView, child: viewControllers[index], previous: self.children.first)
             break
         case 2:
-            self.updateBackground(vc: viewControllers[index + 1])
             ViewEmbedder.embed(parent: self, container: self.contentView, child: viewControllers[index + 1], previous: self.children.first)
             break
         case 3:
-            self.updateBackground(vc: viewControllers[index + 1])
             ViewEmbedder.embed(parent: self, container: self.contentView, child: viewControllers[index + 1], previous: self.children.first)
             break
         default:
             break
-        }
-    }
-    
-    func updateBackground(vc:UIViewController){
-        if vc is UINavigationController {
-            self.view.backgroundColor = (vc as? UINavigationController)?.viewControllers.first?.view.backgroundColor
-        }else{
-            self.view.backgroundColor = vc.view.backgroundColor
         }
     }
     
