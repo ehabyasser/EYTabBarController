@@ -87,12 +87,12 @@ class EYTabBar: UIView {
                 barItem.accentColor = accentColor
                 if index < 2 {
                     barItem.tap = {
-                        self.delegate?.didSelectTab(at: index)
+                        self.delegate!.didSelectTab(at: index)
                         self.selectItem(index: index)
                     }
                 }else{
                     barItem.tap = {
-                        self.delegate?.didSelectTab(at: index - 1)
+                        self.delegate!.didSelectTab(at: index - 1)
                         self.selectItem(index: index - 1)
                     }
                 }
