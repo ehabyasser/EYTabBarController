@@ -170,10 +170,10 @@ open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavig
     }
     
     internal func didSelectTab(at index: Int) {
-        if selectedIndex == index {return}
         if let delegate = self.delegate {
             delegate.tabDidSelect(index: index)
         }else{
+            if selectedIndex == index {return}
             self.selectedIndex = index
         }
     }
