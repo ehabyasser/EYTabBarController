@@ -154,6 +154,11 @@ open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavig
         }
         self.view.layoutIfNeeded()
     }
+
+
+    open func resetSelections(){
+        self.tabBar.resetItems()
+    }
     
    private func showTabBar(){
        
