@@ -5,6 +5,7 @@ import SnapKit
 
 public protocol EYTabBarDelegate{
     func tabDidSelect(index:Int)
+    func tabBtnDidTapped()
 }
 
 @available(iOS 13.0, *)
@@ -118,7 +119,7 @@ open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavig
         addBtn.tap {
             self.tabBar.resetItems()
             if let delegate = self.delegate {
-                delegate.tabDidSelect(index: 2)
+                delegate.tabBtnDidTapped()
             }else{
                 let vc = self.viewControllers.get(at: 2) ?? UIViewController()
                 self.view.backgroundColor = vc.view.backgroundColor
