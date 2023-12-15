@@ -117,10 +117,10 @@ open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavig
         }
         
         addBtn.tap {
-            self.tabBar.resetItems()
             if let delegate = self.delegate {
                 delegate.tabBtnDidTapped()
             }else{
+                self.tabBar.resetItems()
                 let vc = self.viewControllers.get(at: 2) ?? UIViewController()
                 self.view.backgroundColor = vc.view.backgroundColor
                 ViewEmbedder.embed(parent: self, container: self.contentView, child: vc, previous: self.children.first)
