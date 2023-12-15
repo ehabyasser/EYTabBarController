@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-public class ViewEmbedder {
+open class ViewEmbedder {
     
-  public class func embed(
+  open class func embed(
         parent:UIViewController,
         container:UIView,
         child:UIViewController,
@@ -34,7 +34,7 @@ public class ViewEmbedder {
         vc.removeFromParent()
     }
     
-   public class func embed(withIdentifier id:String, parent:UIViewController, container:UIView, completion:((UIViewController)->Void)? = nil){
+   open class func embed(withIdentifier id:String, parent:UIViewController, container:UIView, completion:((UIViewController)->Void)? = nil){
         let vc = parent.storyboard!.instantiateViewController(withIdentifier: id)
         embed(
             parent: parent,
