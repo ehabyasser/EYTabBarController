@@ -48,7 +48,7 @@ open class EYTabBarController: UIViewController , EYTabBarViewDelegate , UINavig
     }()
     
     
-    private let contentView:UIView = {
+    public let contentView:UIView = {
         let view = UIView()
         return view
     }()
